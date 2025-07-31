@@ -1,0 +1,27 @@
+<div class="max-w-2xl mx-auto py-8 px-2">
+  <h1 class="text-2xl font-bold mb-6 text-gray-900">@if (isEdit()) { Edit Post } @else { Create Post }</h1>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-6" autocomplete="off" aria-label="Post Editor">
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" required aria-label="Title" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Template</mat-label>
+      <mat-select formControlName="template" required aria-label="Template">
+        @for (t of templates; track t.value) {
+          <mat-option [value]="t.value">{{ t.label }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <ngx-editor [editor]="editor"  formControlName="content" [placeholder]="'Write your post here...'" class="bg-white rounded shadow"></ngx-editor>
+    @if (error()) {
+      <div class="text-red-600" role="alert">{{ error() }}</div>
+    }
+    <div class="flex gap-4">
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || loading()">
+        @if (isEdit()) { Update Post } @else { Create Post }
+      </button>
+      <button mat-stroked-button type="button" (click)="router.navigate(['/admin/posts'])">Cancel</button>
+    </div>
+  </form>
+</div>

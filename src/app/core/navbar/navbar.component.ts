@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Location } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -12,7 +13,10 @@ import { AuthService } from '../services/auth.service';
 export class NavbarComponent {
   protected readonly isMenuOpen = signal(false);
   
-  constructor(protected readonly authService: AuthService) {}
+  public readonly location: Location;
+  constructor(protected readonly authService: AuthService) {
+    this.location = inject(Location);
+  }
 
   protected toggleMenu(): void {
     this.isMenuOpen.update(current => !current);

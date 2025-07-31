@@ -22,11 +22,17 @@
       type="submit"
       [disabled]="loginForm.invalid || loading()"
     >
-      <span *ngIf="!loading()">Login</span>
-      <mat-progress-spinner *ngIf="loading()" diameter="24" mode="indeterminate" color="accent" class="align-middle"></mat-progress-spinner>
+      @if (!loading()) {
+        <span>Login</span>
+      }
+      @if (loading()) {
+        <mat-progress-spinner diameter="24" mode="indeterminate" color="accent" class="align-middle"></mat-progress-spinner>
+      }
     </button>
-    <div *ngIf="error()" class="text-red-600 text-center mt-2" role="alert" aria-live="assertive">
-      {{ error() }}
-    </div>
+    @if (error()) {
+      <div class="text-red-600 text-center mt-2" role="alert" aria-live="assertive">
+        {{ error() }}
+      </div>
+    }
   </form>
 </div>

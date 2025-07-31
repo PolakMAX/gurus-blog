@@ -23,6 +23,16 @@ export const routes: Routes = [
     loadComponent: () => import('./admin/posts-management/posts-management.component').then(m => m.PostsManagementComponent),
     canActivate: [authGuard]
   },
+  {
+    path: 'admin/posts/create',
+    loadComponent: () => import('./admin/posts-management/posts-editor.component').then(m => m.PostsEditorComponent),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'admin/posts/edit/:id',
+    loadComponent: () => import('./admin/posts-management/posts-editor.component').then(m => m.PostsEditorComponent),
+    canActivate: [authGuard]
+  },
   { 
     path: 'admin/gallery', 
     loadComponent: () => import('./admin/image-gallery/image-gallery.component').then(m => m.ImageGalleryComponent),
