@@ -1,0 +1,19 @@
+// Custom navbar styles (if needed beyond TailwindCSS)
+// Most styling is handled by TailwindCSS classes in the template
+
+.navbar {
+  // Ensure navbar stays on top
+  z-index: 50;
+}
+
+// Smooth transitions for mobile menu
+.mobile-menu-enter {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.mobile-menu-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 200ms ease-out, transform 200ms ease-out;
+} 
