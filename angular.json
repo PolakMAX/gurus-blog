@@ -35,6 +35,12 @@
           },
           "configurations": {
             "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.production.ts"
+                }
+              ],
               "budgets": [
                 {
                   "type": "initial",
@@ -47,6 +53,30 @@
                   "maximumError": "8kB"
                 }
               ],
+              "outputHashing": "all"
+            },
+            "stage": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.stage.ts"
+                }
+              ],
+              "optimization": true,
+              "extractLicenses": true,
+              "sourceMap": false,
+              "outputHashing": "all"
+            },
+            "testing": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.testing.ts"
+                }
+              ],
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
               "outputHashing": "all"
             },
             "development": {
@@ -63,8 +93,11 @@
             "production": {
               "buildTarget": "gurus-blog:build:production"
             },
-            "development": {
-              "buildTarget": "gurus-blog:build:development"
+            "stage": {
+              "buildTarget": "gurus-blog:build:stage"
+            },
+            "testing": {
+              "buildTarget": "gurus-blog:build:testing"
             }
           },
           "defaultConfiguration": "development"
