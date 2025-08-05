@@ -98,6 +98,9 @@
             },
             "testing": {
               "buildTarget": "gurus-blog:build:testing"
+            },
+            "development": {
+              "buildTarget": "gurus-blog:build:development"
             }
           },
           "defaultConfiguration": "development"
