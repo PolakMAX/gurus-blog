@@ -9,11 +9,11 @@
       </div>
       <button mat-raised-button color="primary" (click)="goToCreate()" class="w-full sm:w-auto">Create New Post</button>
     </div>
-    <div class="bg-white rounded-lg shadow divide-y divide-gray-100">
-      @if (posts().length === 0) {
+    <!-- <div class="bg-white rounded-lg shadow divide-y divide-gray-100">
+      @if (posts?.length === 0) {
         <div class="p-6 text-gray-500 text-center">No posts found.</div>
       } @else {
-        @for (post of posts(); track post.id) {
+        @for (post of posts; track post.id) {
           <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 gap-2 hover:bg-gray-50 transition">
             <div class="flex-1 min-w-0">
               <div class="font-semibold text-gray-900 truncate">{{ post.title }}</div>
@@ -32,6 +32,35 @@
             </div>
           </div>
         }
+      }
+    </div> -->
+    <div class="bg-white rounded-lg shadow divide-y divide-gray-100">
+      @if (postsRes.isLoading()) {
+      <div class="p-6 text-gray-500 text-center">Loading posts…</div>
+      } @else if (postsRes.error()) {
+      <div class="p-6 text-red-600 text-center">Could not load posts.</div>
+      } @else if (postsRes.hasValue() && postsRes.value().length === 0) {
+      <div class="p-6 text-gray-500 text-center">No posts found.</div>
+      } @else {
+      @for (post of postsRes.value(); track post.id) {
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 gap-2 hover:bg-gray-50 transition">
+                  <div class="flex-1 min-w-0">
+                    <div class="font-semibold text-gray-900 truncate">{{ post.title }}</div>
+                    <div class="text-xs text-gray-500">Last updated: {{ post.updatedAt | date:'short' }}</div>
+                    <div class="text-xs text-gray-400">Template: {{ post.template }}</div>
+                  </div>
+                  <div class="flex gap-2 mt-2 sm:mt-0">
+                    <button mat-stroked-button color="primary" (click)="goToEdit(post.id)" aria-label="Edit post">
+                      <mat-icon>edit</mat-icon>
+                      <span class="sr-only">Edit</span>
+                    </button>
+                    <button mat-stroked-button color="warn" (click)="deletePost(post.id)" aria-label="Delete post">
+                      <mat-icon>delete</mat-icon>
+                      <span class="sr-only">Delete</span>
+                    </button>
+                  </div>
+                </div>
+      }
       }
     </div>
   </div>

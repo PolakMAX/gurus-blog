@@ -1,9 +1,9 @@
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { PostsService, Post } from '../../core/services/posts.service';
+import { PostsService } from '../../core/services/posts.service';
 
 @Component({
   selector: 'app-posts-management',
@@ -16,7 +16,7 @@ export class PostsManagementComponent {
   private readonly postsService = inject(PostsService);
   private readonly router = inject(Router);
   private readonly location = inject(Location);
-  posts = computed(() => this.postsService.posts());
+  postsRes = inject(PostsService).posts;
 
   goToCreate() {
     this.router.navigate(['/admin/posts/create']);

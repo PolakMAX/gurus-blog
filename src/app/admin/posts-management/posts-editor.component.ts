@@ -5,8 +5,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Router, ActivatedRoute } from '@angular/router';
-import { PostsService, Post, PostTemplate } from '../../core/services/posts.service';
+import { PostsService } from '../../core/services/posts.service';
 import { NgxEditorModule, Editor } from 'ngx-editor';
+import { PostTemplate } from '../../shared/models/posts.model';
 
 @Component({
   selector: 'app-posts-editor',
@@ -51,14 +52,20 @@ export class PostsEditorComponent implements OnDestroy {
       const id = params.get('id');
       if (id) {
         this.postId.set(id);
-        const post = this.postsService.getPost(id);
-        if (post) {
-          this.form.patchValue({
-            title: post.title,
-            content: post.content,
-            template: post.template,
-          });
-        }
+        this.postsService.getPost(id).subscribe({
+          next: (post) => {
+            if (post) {
+              this.form.patchValue({
+                title: post.title,
+                content: post.content,
+                template: post.template,
+              });
+            }
+          },
+          error: () => {
+            this.error.set('Failed to load post.');
+          }
+        });
       }
     });
   }
